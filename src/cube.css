@@ -1,13 +1,23 @@
-/* cube.css */
-* { box-sizing: border-box; }
-html, body, #root { height: 100%; }
-body { margin: 0; background: #0b0e14; color: #cfd8e3; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
+* {
+    box-sizing: border-box;
+}
+
+html, body, #root {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: #0b0e14;
+    color: #cfd8e3;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+}
 
 :root{
-    --size: clamp(220px, 46vmin, 540px);  /* размер куба */
-    --h: calc(var(--size) / 2);           /* половина размера */
-    --t: 2px;                              /* толщина ребра */
-    --edge: #9bb0ff;                       /* цвет рёбер */
+    --size: clamp(220px, 46vmin, 540px);
+    --h: calc(var(--size) / 2);
+    --t: 2px;
+    --edge: #9bb0ff;
 }
 
 .page{
@@ -28,15 +38,10 @@ body { margin: 0; background: #0b0e14; color: #cfd8e3; font-family: system-ui, -
     width: var(--size);
     height: var(--size);
     transform-style: preserve-3d;
-    transform: rotateX(-22deg) rotateY(32deg);
-    transition: transform .6s cubic-bezier(.22,.66,.15,1);
-    will-change: transform;
-}
-.cube:hover{
-    transform: rotateX(-12deg) rotateY(52deg);
+    transform:  rotateX(-5deg) rotateY(-10deg);
 }
 
-/* базовая «линия»: горизонтальная, длиной с куб */
+
 .edge{
     position: absolute;
     left: 50%;
@@ -45,30 +50,24 @@ body { margin: 0; background: #0b0e14; color: #cfd8e3; font-family: system-ui, -
     height: var(--t);
     background: var(--edge);
     border-radius: 2px;
-    /* чуть подсветим */
     box-shadow: 0 0 8px rgba(155,176,255,.35);
     transform-origin: 50% 50%;
 }
 
-/* ===== 4 рёбра вдоль X (горизонтальные). Координаты: (y=±h, z=±h) ===== */
-.x1{ transform: translate3d(0, calc(-1 * var(--h)), calc(-1 * var(--h))) translate(-50%, -50%); }
-.x2{ transform: translate3d(0, calc(-1 * var(--h)), var(--h))               translate(-50%, -50%); }
-.x3{ transform: translate3d(0, var(--h),               calc(-1 * var(--h))) translate(-50%, -50%); }
-.x4{ transform: translate3d(0, var(--h),               var(--h))            translate(-50%, -50%); }
+.x1{ transform: translate3d(0, calc(-1 * var(--h)), calc(-1 * var(--h))) }
+.x2{ transform: translate3d(0, calc(-1 * var(--h)), var(--h)) }
+.x3{ transform: translate3d(0, var(--h),calc(-1 * var(--h))) }
+.x4{ transform: translate3d(0, var(--h),var(--h))}
 
-/* ===== 4 рёбра вдоль Y (вертикальные). Поворачиваем базовую линию на 90° вокруг Z.
-   Координаты: (x=±h, z=±h) — перевод делаем ПОСЛЕ поворота (см. порядок трансформаций). ===== */
-.y1{ transform: translate3d(calc(-1 * var(--h)), 0, calc(-1 * var(--h))) rotateZ(90deg) translate(-50%, -50%); }
-.y2{ transform: translate3d(var(--h),             0, calc(-1 * var(--h))) rotateZ(90deg) translate(-50%, -50%); }
-.y3{ transform: translate3d(calc(-1 * var(--h)), 0, var(--h))              rotateZ(90deg) translate(-50%, -50%); }
-.y4{ transform: translate3d(var(--h),             0, var(--h))              rotateZ(90deg) translate(-50%, -50%); }
+.y1{ transform: translate3d(calc(-1 * var(--h)), 0, calc(-1 * var(--h))) rotateZ(90deg)  }
+.y2{ transform: translate3d(var(--h),0, calc(-1 * var(--h))) rotateZ(90deg) }
+.y3{ transform: translate3d(calc(-1 * var(--h)), 0, var(--h))rotateZ(90deg) }
+.y4{ transform: translate3d(var(--h), 0, var(--h))rotateZ(90deg) }
 
-/* ===== 4 рёбра вдоль Z. Поворачиваем базовую линию на 90° вокруг Y.
-   Координаты: (x=±h, y=±h) ===== */
-.z1{ transform: translate3d(calc(-1 * var(--h)), calc(-1 * var(--h)), 0) rotateY(90deg) translate(-50%, -50%); }
-.z2{ transform: translate3d(var(--h),             calc(-1 * var(--h)), 0) rotateY(90deg) translate(-50%, -50%); }
-.z3{ transform: translate3d(calc(-1 * var(--h)), var(--h),             0) rotateY(90deg) translate(-50%, -50%); }
-.z4{ transform: translate3d(var(--h),             var(--h),             0) rotateY(90deg) translate(-50%, -50%); }
+.z1{ transform: translate3d(calc(-1 * var(--h)), calc(-1 * var(--h)), 0) rotateY(90deg) ; }
+.z2{ transform: translate3d(var(--h), calc(-1 * var(--h)), 0) rotateY(90deg)  }
+.z3{ transform: translate3d(calc(-1 * var(--h)), var(--h),0) rotateY(90deg) }
+.z4{ transform: translate3d(var(--h), var(--h), 0) rotateY(90deg); }
 
 .hint{ opacity:.6; user-select:none; }
 @media (prefers-reduced-motion: reduce){
