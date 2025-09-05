@@ -1,10 +1,5 @@
-* {
-    box-sizing: border-box;
-}
-
-html, body, #root {
-    height: 100%;
-}
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
 
 body {
     margin: 0;
@@ -22,13 +17,19 @@ body {
 
 .page{
     min-height: 100%;
-    display: grid;
-    place-items: center;
-    gap: 1rem;
     padding: 6vmin;
 }
 
+.scroll{
+    height: 280vh;
+}
+
 .scene{
+    position: sticky;
+    top: 14vh;
+    display: grid;
+    place-items: center;
+
     perspective: 1000px;
     perspective-origin: 50% 40%;
 }
@@ -38,20 +39,42 @@ body {
     width: var(--size);
     height: var(--size);
     transform-style: preserve-3d;
-    transform:  rotateX(-5deg) rotateY(-10deg);
+
+    transform: rotateX(var(--rx, -10deg)) rotateY(var(--ry, -20deg));
 }
 
+.face{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--size);
+    height: var(--size);
+
+    background:
+            radial-gradient(120% 120% at 20% 10%, rgba(155,176,255,.18), rgba(155,176,255,.06));
+    border: 1px solid rgba(155,176,255,.28);
+    box-shadow: 0 0 12px rgba(155,176,255,.14) inset;
+    backdrop-filter: saturate(120%);
+    z-index: 1;
+}
+
+.front  { transform: translate3d(0, 0, var(--h)); }
+.back   { transform: translate3d(0, 0, calc(-1 * var(--h))) ; }
+.right  { transform: translate3d(var(--h), 0, 0) rotateY(90deg); }
+.left   { transform: translate3d(calc(-1 * var(--h)), 0, 0) rotateY(90deg); }
+.top    { transform: translate3d(0, calc(-1 * var(--h)), 0) rotateX(90deg); }
+.bottom { transform: translate3d(0, var(--h), 0) rotateX(90deg); }
 
 .edge{
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 100%;
     width: var(--size);
     height: var(--t);
     background: var(--edge);
     border-radius: 2px;
     box-shadow: 0 0 8px rgba(155,176,255,.35);
-    transform-origin: 50% 50%;
+    z-index: 2;
 }
 
 .x1{ transform: translate3d(0, calc(-1 * var(--h)), calc(-1 * var(--h))) }
@@ -70,6 +93,7 @@ body {
 .z4{ transform: translate3d(var(--h), var(--h), 0) rotateY(90deg); }
 
 .hint{ opacity:.6; user-select:none; }
+
 @media (prefers-reduced-motion: reduce){
-    .cube{ transition: none; }
+    .cube{ transform: rotateX(-10deg) rotateY(-20deg) !important; }
 }
